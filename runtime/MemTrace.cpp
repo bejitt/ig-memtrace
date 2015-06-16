@@ -711,13 +711,19 @@ static void MemTrace::HookCrt()
       DebugBreak();
     }
 
-#if _MSC_VER != 1700
+    const LPCSTR szRuntimeDll =
+#if _MSC_VER == 1700
+      "msvcr110.dll"
+#elif _MSC_VER == 1800
+      "msvcr120.dll"
+#else
 #error This needs updating for the new CRT version. Talk to Andreas.
 #endif
+      ;
 
 #if !defined(_DEBUG)
 
-    if (HMODULE crt_module = GetModuleHandleA("msvcr110.dll"))
+    if (HMODULE crt_module = GetModuleHandleA(szRuntimeDll))
     {
 #define IG_WRAP_FN(symbol) { #symbol, (void*) Wrapped_##symbol, (void**) &Original_##symbol }
       static const struct

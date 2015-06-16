@@ -4,3 +4,5 @@ obj
 *.suo
 *.user
 pingme.txt
+*.opensdf
+*.sdf
