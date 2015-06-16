@@ -144,6 +144,8 @@ static void TestCustomAllocator()
 
 int main(int argc, char* argv[])
 {
+  MemTrace::InitSocket("127.0.0.1", 9811);
+
   TestCRTAllocs();
 
   TestCustomAllocator();
